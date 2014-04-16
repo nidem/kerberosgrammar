@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ufwb version="1.7">
-    <grammar name="KIRBI grammar" start="id:178" author="Tim Medin" email="timmedin@gmail.com" fileextension="kirbi">
-        <description>Grammar for KIRBI files</description>
-        <structure name="TagHeader" id="179" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="TagType" mustmatch="yes" id="180" type="integer" length="1" display="hex">
+    <grammar name="KIRBI grammar" start="id:21" author="Tim Medin" email="timmedin@gmail.com" fileextension="kirbi">
+        <description>Grammar for KIRBI files. Kerberos ticket files created by mimikatz kerberos::list /export</description>
+        <structure name="TagHeader" id="22" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="TagType" mustmatch="yes" id="23" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Ticket" value="0x61"/>
                     <fixedvalue name="Integer" value="0x2"/>
@@ -39,14 +39,14 @@
                     <fixedvalue name="ObjectIdentifier" value="0x6"/>
                 </fixedvalues>
             </number>
-            <number name="FieldLen" id="181" type="integer" length="1"/>
-            <number name="FieldLenLong" id="182" type="integer" length="if(above(FieldLen,0x80),FieldLen-0x80,0)"/>
+            <number name="FieldLen" id="24" type="integer" length="1"/>
+            <number name="FieldLenLong" id="25" type="integer" length="if(above(FieldLen,0x80),FieldLen-0x80,0)"/>
         </structure>
-        <structure name="Tag" id="184" extends="id:179">
-            <structure name="Data" id="185" length="if(below(FieldLen,0x80),FieldLen,FieldLenLong)"/>
+        <structure name="Tag" id="27" extends="id:22">
+            <structure name="Data" id="28" length="if(below(FieldLen,0x80),FieldLen,FieldLenLong)"/>
         </structure>
-        <structure name="SequenceIndex" id="191" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="Index" mustmatch="yes" id="192" type="integer" length="1" display="hex">
+        <structure name="SequenceIndex" id="34" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="Index" mustmatch="yes" id="35" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Sequence0" value="0xA0"/>
                     <fixedvalue name="Sequence1" value="0xA1"/>
@@ -62,58 +62,58 @@
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="SequencedInteger" id="194" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="SequenceIndex" id="195" structure="id:191"/>
-            <number name="FieldLen" id="196" type="integer" length="1"/>
-            <number name="IntegerType" mustmatch="yes" id="197" type="integer" length="1" display="hex">
+        <structure name="SequencedInteger" id="37" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="SequenceIndex" id="38" structure="id:34"/>
+            <number name="FieldLen" id="39" type="integer" length="1"/>
+            <number name="IntegerType" mustmatch="yes" id="40" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Integer" value="0x2"/>
                 </fixedvalues>
             </number>
-            <number name="IntegerLen" id="198" type="integer" length="1"/>
-            <number name="IntegerValue" id="199" type="integer" length="IntegerLen"/>
+            <number name="IntegerLen" id="41" type="integer" length="1"/>
+            <number name="IntegerValue" id="42" type="integer" length="IntegerLen"/>
         </structure>
-        <structure name="SequencedString" id="201" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="SequenceIndex" id="202" structure="id:191"/>
-            <number name="FieldLen" id="203" type="integer" length="1"/>
-            <structref name="StringType" id="205" structure="id:204"/>
-            <number name="StringLen" id="206" type="integer" length="1"/>
-            <string name="StringValue" id="207" type="fixed-length" length="StringLen"/>
+        <structure name="SequencedString" id="44" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="SequenceIndex" id="45" structure="id:34"/>
+            <number name="FieldLen" id="46" type="integer" length="1"/>
+            <structref name="StringType" id="48" structure="id:47"/>
+            <number name="StringLen" id="49" type="integer" length="1"/>
+            <string name="StringValue" id="50" type="fixed-length" length="StringLen"/>
         </structure>
-        <structure name="StringType" id="204" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="StringType" mustmatch="yes" id="209" type="integer" length="1" display="hex">
+        <structure name="StringType" id="47" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="StringType" mustmatch="yes" id="52" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="String" value="0x1B"/>
                     <fixedvalue name="OctetString" value="0x24"/>
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="SequencedNumericString" id="211" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="SequenceIndex" id="212" structure="id:191"/>
-            <number name="NumericStringType" mustmatch="yes" id="213" type="integer" length="1" display="hex">
+        <structure name="SequencedNumericString" id="54" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="SequenceIndex" id="55" structure="id:34"/>
+            <number name="NumericStringType" mustmatch="yes" id="56" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="NumericString" value="0x12"/>
                 </fixedvalues>
             </number>
-            <number name="OctetStringType" mustmatch="yes" id="214" type="integer" length="1" display="hex">
+            <number name="OctetStringType" mustmatch="yes" id="57" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="OctetString" value="0x4"/>
                 </fixedvalues>
             </number>
-            <number name="StringLen" id="215" type="integer" length="1"/>
-            <binary name="BinaryString" id="216" length="StringLen"/>
+            <number name="StringLen" id="58" type="integer" length="1"/>
+            <binary name="BinaryString" id="59" length="StringLen"/>
         </structure>
-        <structure name="SequencedGeneralizedTime" id="218" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="SequenceIndex" id="219" structure="id:191"/>
-            <number name="FieldLen" id="220" type="integer" length="1"/>
-            <number name="GeneralizedTimeType" mustmatch="yes" id="221" type="integer" length="1" display="hex">
+        <structure name="SequencedGeneralizedTime" id="61" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="SequenceIndex" id="62" structure="id:34"/>
+            <number name="FieldLen" id="63" type="integer" length="1"/>
+            <number name="GeneralizedTimeType" mustmatch="yes" id="64" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="GeneralizedTime" value="0x18"/>
                 </fixedvalues>
             </number>
-            <number name="GeneralizedTimeLen" id="222" type="integer" length="1"/>
-            <string name="Year" id="223" type="fixed-length" length="4"/>
-            <string name="Month" mustmatch="yes" id="224" type="fixed-length" length="2">
+            <number name="GeneralizedTimeLen" id="65" type="integer" length="1"/>
+            <string name="Year" id="66" type="fixed-length" length="4"/>
+            <string name="Month" mustmatch="yes" id="67" type="fixed-length" length="2">
                 <fixedvalues>
                     <fixedvalue name="January" value="01"/>
                     <fixedvalue name="February" value="02"/>
@@ -129,111 +129,111 @@
                     <fixedvalue name="December" value="12"/>
                 </fixedvalues>
             </string>
-            <string name="Day" id="225" type="fixed-length" length="2"/>
-            <string name="Hour" id="226" type="fixed-length" length="2"/>
-            <string name="Minute" id="227" type="fixed-length" length="2"/>
-            <string name="Second" id="228" type="fixed-length" length="2"/>
-            <string name="Z" mustmatch="yes" id="229" type="fixed-length" length="1">
+            <string name="Day" id="68" type="fixed-length" length="2"/>
+            <string name="Hour" id="69" type="fixed-length" length="2"/>
+            <string name="Minute" id="70" type="fixed-length" length="2"/>
+            <string name="Second" id="71" type="fixed-length" length="2"/>
+            <string name="Z" mustmatch="yes" id="72" type="fixed-length" length="1">
                 <fixedvalues>
                     <fixedvalue name="Z" value="Z"/>
                 </fixedvalues>
             </string>
         </structure>
-        <structure name="KIRBI file" id="178" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="TicketHeading" id="231" structure="id:179"/>
-            <structref name="SequenceHeader" id="232" structure="id:179"/>
-            <structref name="KerberosVersion" id="233" structure="id:194"/>
-            <structref name="MessageType" id="234" structure="id:194"/>
-            <structref name="ServerTicket" id="236" structure="id:235"/>
-            <structref name="LocalTicket" id="238" structure="id:237"/>
+        <structure name="KIRBI file" id="21" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="TicketHeading" id="74" structure="id:22"/>
+            <structref name="SequenceHeader" id="75" structure="id:22"/>
+            <structref name="KerberosVersion" id="76" structure="id:37"/>
+            <structref name="MessageType" id="77" structure="id:37"/>
+            <structref name="ServerTicket" id="79" structure="id:78"/>
+            <structref name="LocalTicket" id="81" structure="id:80"/>
         </structure>
-        <structure name="ServerTicket" id="235" extends="id:184">
-            <structure name="Data" id="240">
-                <structref name="SequenceStart" id="244" structure="id:179"/>
-                <structref name="TicketStart" id="245" structure="id:179"/>
-                <structref name="TicketSequenceStart" id="246" structure="id:179"/>
-                <structref name="TicketKerberosVersion" id="247" structure="id:194"/>
-                <structref name="Realm" id="248" structure="id:201"/>
-                <structref name="Service" id="254" structure="id:253"/>
-                <structref name="EncryptedTicketPart" id="257" structure="id:256"/>
+        <structure name="ServerTicket" id="78" extends="id:27">
+            <structure name="Data" id="83">
+                <structref name="SequenceStart" id="87" structure="id:22"/>
+                <structref name="TicketStart" id="88" structure="id:22"/>
+                <structref name="TicketSequenceStart" id="89" structure="id:22"/>
+                <structref name="TicketKerberosVersion" id="90" structure="id:37"/>
+                <structref name="Realm" id="91" structure="id:44"/>
+                <structref name="Service" id="93" structure="id:92"/>
+                <structref name="EncryptedTicketPart" id="95" structure="id:94"/>
             </structure>
         </structure>
-        <structure name="LocalTicket" id="237" extends="id:184">
-            <structure name="Data" id="260">
-                <structref name="SequenceStart" id="264" structure="id:179"/>
-                <structref name="Padding" id="265" structure="id:194"/>
-                <structref name="TagHeader0" id="266" structure="id:179"/>
-                <structref name="TagHeader1" id="267" structure="id:179"/>
-                <structure name="EncKrbCredPartData" id="268">
-                    <structref name="EncKrbCredPart" id="269" structure="id:179"/>
-                    <structref name="EKCPSequenceStart" id="270" structure="id:179"/>
-                    <structref name="TagHeader" id="271" structure="id:179"/>
-                    <structref name="SequenceStart0" id="272" structure="id:179"/>
-                    <structref name="SequenceStart1" id="273" structure="id:179"/>
-                    <binary name="StartOctetStream" id="274" length="2"/>
-                    <structref name="SequenceStart2" id="275" structure="id:179"/>
-                    <structref name="EncryptionType" id="276" structure="id:194"/>
-                    <structref name="SessionKey" id="277" structure="id:211"/>
-                    <structref name="Realm0" id="278" structure="id:201"/>
-                    <structure name="UserInfo" id="279">
-                        <structref name="SequenceIndex" id="280" structure="id:191"/>
-                        <number name="Length" id="281" type="integer" length="1"/>
-                        <structref name="SequenceStart" id="282" structure="id:179"/>
-                        <structref name="UnknownNumber" id="283" structure="id:194"/>
-                        <structure name="User" id="284">
-                            <structref name="SequenceIndex" id="285" structure="id:191"/>
-                            <number name="ObjectIdentifierType" mustmatch="yes" id="286" type="integer" length="1" display="hex">
+        <structure name="LocalTicket" id="80" extends="id:27">
+            <structure name="Data" id="98">
+                <structref name="SequenceStart" id="102" structure="id:22"/>
+                <structref name="Padding" id="103" structure="id:37"/>
+                <structref name="TagHeader0" id="104" structure="id:22"/>
+                <structref name="TagHeader1" id="105" structure="id:22"/>
+                <structure name="EncKrbCredPartData" id="106">
+                    <structref name="EncKrbCredPart" id="107" structure="id:22"/>
+                    <structref name="EKCPSequenceStart" id="108" structure="id:22"/>
+                    <structref name="TagHeader" id="109" structure="id:22"/>
+                    <structref name="SequenceStart0" id="110" structure="id:22"/>
+                    <structref name="SequenceStart1" id="111" structure="id:22"/>
+                    <binary name="StartOctetStream" id="112" length="2"/>
+                    <structref name="SequenceStart2" id="113" structure="id:22"/>
+                    <structref name="EncryptionType" id="114" structure="id:37"/>
+                    <structref name="SessionKey" id="115" structure="id:54"/>
+                    <structref name="Realm0" id="116" structure="id:44"/>
+                    <structure name="UserInfo" id="117">
+                        <structref name="SequenceIndex" id="118" structure="id:34"/>
+                        <number name="Length" id="119" type="integer" length="1"/>
+                        <structref name="SequenceStart" id="120" structure="id:22"/>
+                        <structref name="UnknownNumber" id="121" structure="id:37"/>
+                        <structure name="User" id="122">
+                            <structref name="SequenceIndex" id="123" structure="id:34"/>
+                            <number name="ObjectIdentifierType" mustmatch="yes" id="124" type="integer" length="1" display="hex">
                                 <fixedvalues>
                                     <fixedvalue name="ObjectIdentifier" value="0x6"/>
                                 </fixedvalues>
                             </number>
-                            <structref name="Username" id="287" structure="id:201"/>
+                            <structref name="Username" id="125" structure="id:44"/>
                         </structure>
                     </structure>
-                    <structref name="TransitedEncoding" id="290" structure="id:184"/>
-                    <structref name="StartTime" id="291" structure="id:218"/>
-                    <structref name="EndTime" id="292" structure="id:218"/>
-                    <structref name="RenewTil" id="293" structure="id:218"/>
-                    <structref name="Realm1" id="294" structure="id:201"/>
-                    <structref name="Service" id="343" structure="id:253"/>
+                    <structref name="TransitedEncoding" id="128" structure="id:27"/>
+                    <structref name="StartTime" id="129" structure="id:61"/>
+                    <structref name="EndTime" id="130" structure="id:61"/>
+                    <structref name="RenewTil" id="131" structure="id:61"/>
+                    <structref name="Realm1" id="132" structure="id:44"/>
+                    <structref name="Service" id="133" structure="id:92"/>
                 </structure>
             </structure>
         </structure>
-        <structure name="Service" id="253" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="SequenceIndex0" id="299" structure="id:191"/>
-            <structref name="StringType0" id="300" structure="id:204"/>
-            <number name="SequenceStart0" mustmatch="yes" id="325" type="integer" length="1" display="hex">
+        <structure name="Service" id="92" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="SequenceIndex0" id="137" structure="id:34"/>
+            <structref name="StringType0" id="138" structure="id:47"/>
+            <number name="SequenceStart0" mustmatch="yes" id="139" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Sequence" value="0x30"/>
                 </fixedvalues>
             </number>
-            <number name="SequenceType" id="301" type="integer" length="1" display="hex">
+            <number name="SequenceType" id="140" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Sequnce" value="0x30"/>
                 </fixedvalues>
             </number>
-            <structref name="NumValues" id="330" structure="id:194"/>
-            <structref name="SequenceIndex" id="332" structure="id:191"/>
-            <structref name="StringType1" id="333" structure="id:204"/>
-            <number name="SequenceStart1" mustmatch="yes" id="334" type="integer" length="1" display="hex">
+            <structref name="NumValues" id="141" structure="id:37"/>
+            <structref name="SequenceIndex" id="142" structure="id:34"/>
+            <structref name="StringType1" id="143" structure="id:47"/>
+            <number name="SequenceStart1" mustmatch="yes" id="144" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Sequence" value="0x30"/>
                 </fixedvalues>
             </number>
-            <number name="SequenceLen1" id="335" type="integer" length="1"/>
-            <structref name="ServiceStringType" id="336" structure="id:204"/>
-            <number name="ServiceStringLen" id="337" type="integer" length="1"/>
-            <string name="ServiceString" id="338" type="fixed-length" length="ServiceStringLen"/>
-            <structref name="ServerStringType" id="339" structure="id:204"/>
-            <number name="ServerStringLen" id="340" type="integer" length="1"/>
-            <string name="ServerString" id="342" type="fixed-length" length="ServerStringLen"/>
+            <number name="SequenceLen1" id="145" type="integer" length="1"/>
+            <structref name="ServiceStringType" id="146" structure="id:47"/>
+            <number name="ServiceStringLen" id="147" type="integer" length="1"/>
+            <string name="ServiceString" id="148" type="fixed-length" length="ServiceStringLen"/>
+            <structref name="ServerStringType" id="149" structure="id:47"/>
+            <number name="ServerStringLen" id="150" type="integer" length="1"/>
+            <string name="ServerString" id="151" type="fixed-length" length="ServerStringLen"/>
         </structure>
-        <structure name="EncryptedTicketPart" id="256" extends="id:184">
-            <structure name="Data" id="309">
-                <structref name="SequenceStart" id="313" structure="id:179"/>
-                <structref name="EncryptionType" id="314" structure="id:194"/>
-                <structref name="KeyVersionNumber (kvno)" id="315" structure="id:194"/>
-                <structref name="EncryptedTicket (enc-part)" id="316" structure="id:184"/>
+        <structure name="EncryptedTicketPart" id="94" extends="id:27">
+            <structure name="Data" id="153">
+                <structref name="SequenceStart" id="157" structure="id:22"/>
+                <structref name="EncryptionType" id="158" structure="id:37"/>
+                <structref name="KeyVersionNumber (kvno)" id="159" structure="id:37"/>
+                <structref name="EncryptedTicket (enc-part)" id="160" structure="id:27"/>
             </structure>
         </structure>
     </grammar>
